@@ -14,13 +14,13 @@ center = [0,0,0]
 #find 3D slope
 
 #find run
-i = len (a)
-j = 0
-for point in range (0, i):
+lastPoint = len (a)
+index = 0
+run = [0,0,0,0]
+for point in range (0, lastPoint):
     xDif = center[0] - point[0]
     absXDif = abs(xDif)
     yDif = center[1] - point[1]
     absYDif = abs(yDif)
-    run = m.sqrt(absXDif*absXDif +absYDif*absYDif)
-
+    run[point] = m.sqrt(absXDif*absXDif +absYDif*absYDif)
     
