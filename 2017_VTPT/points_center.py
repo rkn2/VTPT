@@ -15,8 +15,17 @@ avgX = np.average(xPoints)
 yPoints = a[:,1]
 avgY = np.average(yPoints)
 #calculate mean z
-zPoints = a[:,1]
+zPoints = a[:,2]
 avgZ = np.average(zPoints)
 
-center = [avgX, avgY, avgZ]
+centercheck = [avgX, avgY, avgZ]
 
+i = 0
+center = [0,0,0]
+while (i < 3):
+    points = a[:,i]
+    center[i] = np.average(points)
+    i += 1
+
+print(centercheck)
+print(center)
