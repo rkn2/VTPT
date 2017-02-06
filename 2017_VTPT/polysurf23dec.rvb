@@ -1,0 +1,66 @@
+Option Explicit
+'Script written by <Rebecca Napolitano>
+'Script copyrighted by <Princeton University>
+'Script version Tuesday, July 26, 2016 10:34:25 AM
+'untitled backup
+Call Main()
+Sub Main()
+	'Get Rhino doc name and path with no user input
+	Dim documentPath, documentName
+	
+	documentPath = Rhino.DocumentPath()
+	Rhino.Print documentPath
+	
+	documentName = Rhino.DocumentName()
+	Rhino.Print documentName
+	
+	'Get VTPT Path from user input
+	Dim pathVTPT,runVTPT 
+	pathVTPT = ("C:\3DEC\")
+	runVTPT = ("C:/3DEC/")
+	
+	'Select Polysurfaces (rhino command)
+	Call Rhino.Command("_SelPolysrf ")
+	
+	'Exports a.wrl to VTPT File
+	Dim strFileName, strSett, VTPT, pyPath1, pyPath2, export
+
+	strFileName = "a.wrl"
+	
+	export = pathVTPT + strFileName
+	
+	strSett = VRMLSettings() 'gets your settings from the function below
+	Call Rhino.Command("-_Export " & chr(34) & pathVTPT & strFileName & chr(34) & " " & strSett, False)
+
+	'Calls VTPT Function to run
+	pyPath1 = runVTPT + "vtptpath.py"
+	'pyPath2 = runVTPT + "changes.py"
+
+	Call Rhino.Command("-_RunPythonScript " & chr(34) & (pyPath1) & chr(34) & " ", False)
+	Call Rhino.Command("-_RunPythonScript " & chr(34) & (runVTPT) & "changes.py" & chr(34) & " ", False)
+	
+	'pyPath2 = "C:/3DEC/test.py" 'thisopens latex.. change python file for this to work
+	'pyPath2 = "C:/3DEC/changes.py"
+	'Call Rhino.Command("-_RunPythonScript " & chr(34) & (pyPath2) & chr(34) & " ", False)
+	
+End Sub
+
+Function VRMLSettings()
+	Dim strComb,s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12
+	
+	s1 = "_Version=2.0 "
+	s2 = "_ExportTextureCoordinate=_Yes "
+	s3 = "_ExportVertexNormals=_Yes "
+	s4 = "_ExportVertexColors=_Yes "
+	s5 = "_Enter _Mesh settings "
+	s6 = "_Angle=20 "
+	s7 = "_Aspect Ratio=6 "
+	s8 = "_Distance=0.0 "
+	s9 = "_Density=0 "
+	s10 = "_Grid=16 "
+	s11 = "_MaxEdgeLength=0 "
+	s12 = "_Enter _Enter"
+	
+	strComb = s1 & s2 & s3 & s4 & s5 
+	VRMLSettings = strComb & s6 & s7 & s8 & s9 & s10 & s11 & s12
+End Function
